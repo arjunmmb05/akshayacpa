@@ -58,7 +58,8 @@ def update_content():
         content_collection.replace_one({"_id": "site_data"}, new_data, upsert=True)
         return jsonify({"message": "Content updated successfully!"}), 200
     except Exception as e:
-        return jsonify({"error": "Database connection failed. Ensure MongoDB Atlas accepts any IP (0.0.0.0/0)."}), 500
+        error_msg = f"{type(e).__name__}: {str(e)}"
+        return jsonify({"error": error_msg}), 500
 
 @app.route('/api/reviews', methods=['POST'])
 def add_review():

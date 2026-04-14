@@ -60,7 +60,7 @@ function App() {
       await updateSiteData(newData);
       setSiteData(newData);
     } catch (error) {
-      alert("Failed to save to the Cloud Database. Please check your Vercel/MongoDB connection.");
+      alert(`Database Error:\n${error.message}\n\nPlease check Vercel settings.`);
     }
   };
 

@@ -19,7 +19,10 @@ export const updateSiteData = async (data) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    if (!response.ok) throw new Error('Failed to update content');
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to update content');
+    }
     return await response.json();
   } catch (error) {
     console.error("Error updating site data:", error);
