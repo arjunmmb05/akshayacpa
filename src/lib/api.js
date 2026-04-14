@@ -1,27 +1,29 @@
-// This API library is designed to work completely standalone using localStorage.
-// It allows the site to be hosted for free on Vercel seamlessly without a separate backend.
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+// This API library connects to the Cloud MongoDB Database via Vercel Serverless Functions
+const API_BASE_URL = '/api';
 
 export const fetchSiteData = async () => {
   try {
-    await delay(300);
-    const saved = localStorage.getItem('akshaya_site_data');
-    if (saved) {
-      return JSON.parse(saved);
-    }
-    return null;
+    const response = await fetch(`${API_BASE_URL}/content`);
+    if (!response.ok) throw new Error('Failed to fetch content');
+    return await response.json();
   } catch (error) {
     console.error("Error fetching site data:", error);
-    return null;
+    // Fallback to localStorage if API is down
+    const saved = localStorage.getItem('akshaya_site_data');
+    return saved ? JSON.parse(saved) : null;
   }
 };
 
 export const updateSiteData = async (data) => {
   try {
-    await delay(400);
+    const response = await fetch(`${API_BASE_URL}/content`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error('Failed to update content');
     localStorage.setItem('akshaya_site_data', JSON.stringify(data));
-    return { success: true };
+    return await response.json();
   } catch (error) {
     console.error("Error updating site data:", error);
     throw error;
@@ -30,49 +32,40 @@ export const updateSiteData = async (data) => {
 
 export const submitUserReview = async (review) => {
   try {
-    await delay(500);
-    const saved = localStorage.getItem('akshaya_site_data');
-    if (saved) {
-      const data = JSON.parse(saved);
-      const updatedReviews = [review, ...(data.reviews || [])];
-      data.reviews = updatedReviews;
-      localStorage.setItem('akshaya_site_data', JSON.stringify(data));
-    }
-    return { success: true };
+    const response = await fetch(`${API_BASE_URL}/reviews`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(review),
+    });
+    if (!response.ok) throw new Error('Failed to submit review');
+    return await response.json();
   } catch (error) {
     console.error("Error submitting review:", error);
     throw error;
   }
 };
 
-export const uploadImage = async (file) => {
-  try {
-    await delay(800);
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  } catch (error) {
-    console.error("Error uploading image:", error);
-    throw error;
-  }
-};
-
 export const submitInquiry = async (inquiry) => {
   try {
-    await delay(500);
-    const saved = localStorage.getItem('akshaya_site_data');
-    if (saved) {
-      const data = JSON.parse(saved);
-      const updatedInquiries = [{ ...inquiry, id: Date.now(), date: new Date().toLocaleString() }, ...(data.inquiries || [])];
-      data.inquiries = updatedInquiries;
-      localStorage.setItem('akshaya_site_data', JSON.stringify(data));
-    }
-    return { success: true };
+    const response = await fetch(`${API_BASE_URL}/send-email`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(inquiry),
+    });
+    if (!response.ok) throw new Error('Failed to send email');
+    return await response.json();
   } catch (error) {
     console.error("Error submitting inquiry:", error);
     throw error;
   }
+};
+
+export const uploadImage = async (file) => {
+  // Free image upload via Base64 (simplest for free tier without S3/Cloudinary)
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 };
