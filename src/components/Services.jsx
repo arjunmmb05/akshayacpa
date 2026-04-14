@@ -69,7 +69,7 @@ const Services = ({ services }) => {
                   transition={{ duration: 0.5, delay: index * 0.05 }}
                   viewport={{ once: true }}
                   onClick={() => setSelectedService(service)}
-                  className="group relative bg-zinc-50/50 p-8 rounded-[2.5rem] border border-zinc-100 hover:bg-white hover:border-white hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer flex flex-col h-[300px] noise-overlay"
+                  className="group relative bg-zinc-50/50 p-6 sm:p-8 rounded-3xl sm:rounded-[2.5rem] border border-zinc-100 hover:bg-white hover:border-white hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 cursor-pointer flex flex-col h-[300px] noise-overlay"
                 >
                   <div className="flex justify-between items-start mb-8">
                     <div className="w-16 h-16 flex items-center justify-center text-primary bg-white rounded-3xl group-hover:bg-primary group-hover:text-white shadow-sm group-hover:shadow-lg group-hover:shadow-primary/30 transition-all duration-500">
@@ -122,9 +122,9 @@ const Services = ({ services }) => {
                initial={{ scale: 0.9, opacity: 0, y: 20 }}
                animate={{ scale: 1, opacity: 1, y: 0 }}
                exit={{ scale: 0.9, opacity: 0, y: 20 }}
-               className="bg-white w-full max-w-lg rounded-[3rem] overflow-hidden shadow-2xl relative z-10"
+               className="bg-white w-full max-w-lg rounded-3xl sm:rounded-[3rem] overflow-hidden shadow-2xl relative z-10"
              >
-                <div className="p-10 pb-6 border-b border-zinc-50">
+                <div className="p-6 sm:p-10 pb-6 border-b border-zinc-50">
                    <div className="flex justify-between items-center mb-8">
                       <div className="w-14 h-14 bg-primary/10 text-primary rounded-2xl flex items-center justify-center">
                          <FileCheck size={28} />
@@ -136,7 +136,7 @@ const Services = ({ services }) => {
                    <h3 className="text-3xl font-black text-zinc-900 tracking-tight font-serif">{selectedService.title}</h3>
                 </div>
                 
-                <div className="p-10 pt-8 bg-zinc-50/50">
+                <div className="p-6 sm:p-10 pt-8 bg-zinc-50/50">
                    <p className="text-zinc-500 text-sm mb-6 font-medium">Please bring the following original documents for processing:</p>
                    <div className="space-y-3 mb-10 max-h-[35vh] overflow-y-auto pr-2 custom-scrollbar">
                      {(selectedService.documents || []).map((doc, i) => (

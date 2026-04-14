@@ -122,7 +122,7 @@ const Contact = ({ content }) => {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-zinc-50 p-12 md:p-16 rounded-[4rem] border border-zinc-100 shadow-2xl relative overflow-hidden"
+              className="bg-zinc-50 p-6 sm:p-12 md:p-16 rounded-3xl md:rounded-[4rem] border border-zinc-100 shadow-2xl relative overflow-hidden"
             >
               <div className="relative z-10">
                 <h3 className="text-3xl font-black text-zinc-900 mb-2 tracking-tighter font-serif">Inquiry Portal</h3>
