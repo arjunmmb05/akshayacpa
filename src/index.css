@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Syne:wght@700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0056b3;
+  --color-primary-dark: #002d60;
+  --color-secondary: #fadb5f;
+  --color-background: #f7f8fc;
+  --color-foreground: #0a0f1e;
+  --color-surface: #ffffff;
+  --font-outfit: 'Plus Jakarta Sans', sans-serif;
+  --font-playfair: 'Syne', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-outfit);
+    @apply antialiased selection:bg-primary/20 selection:text-primary overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: var(--font-playfair);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-8 py-4 rounded-full font-bold transition-all duration-300 shadow-[0_8px_20px_rgba(0,86,179,0.25)] hover:shadow-[0_12px_28px_rgba(0,86,179,0.4)] hover:-translate-y-0.5 active:translate-y-0.5 relative overflow-hidden;
+  }
+
+  .btn-outline {
+    @apply bg-white border border-zinc-200 text-zinc-800 px-8 py-4 rounded-full font-bold transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-zinc-300;
+  }
+
+  .section-title {
+    @apply text-5xl md:text-7xl font-black mb-6 text-zinc-900 tracking-tighter leading-[1] font-serif;
+  }
+
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-xl border border-white/80 rounded-3xl shadow-lg;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+
+/* Fluid Text */
+.text-fluid-h1 { font-size: clamp(3.5rem, 8vw, 7rem); }
+
+/* Aurora */
+.aurora-bg {
+  background: radial-gradient(circle at 50% 0%, rgba(0, 86, 179, 0.12), transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(250, 219, 95, 0.08), transparent 40%),
+              radial-gradient(circle at 20% 40%, rgba(0, 86, 179, 0.04), transparent 50%);
+  filter: blur(40px);
+}
+
+/* Noise texture overlay */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+  border-radius: inherit;
+}
+
+/* Mask fade edges */
+.mask-fade-edges-vertical {
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+.mask-fade-edges {
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 86, 179, 0.3); }
+  50% { box-shadow: 0 0 0 12px rgba(0, 86, 179, 0); }
+}
+.pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #002d60 0%, #0056b3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Line clamp utility */
+.limit-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
