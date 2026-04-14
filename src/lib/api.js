@@ -20,8 +20,15 @@ export const updateSiteData = async (data) => {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Failed to update content');
+      let errorMsg = `Server error ${response.status}`;
+      try {
+        const errorData = await response.json();
+        errorMsg = errorData.error || errorMsg;
+      } catch {
+        // Response was HTML (e.g. Vercel 500 page)
+        errorMsg = `Server returned ${response.status} - Check MONGODB_URI in Vercel Environment Variables`;
+      }
+      throw new Error(errorMsg);
     }
     return await response.json();
   } catch (error) {
