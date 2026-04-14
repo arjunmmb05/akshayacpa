@@ -23,14 +23,23 @@ export default async function handler(req, res) {
 
     if (req.method === 'GET') {
       const doc = await collection.findOne({ _id: 'site_data' });
-      if (!doc) return res.status(200).json(null);
+      if (!doc) {
+        // Database is empty — return null so frontend uses its DEFAULT_DATA
+        return res.status(200).json(null);
+      }
       const { _id, ...data } = doc;
       return res.status(200).json(data);
     }
 
     if (req.method === 'POST') {
       const newData = req.body;
-      await collection.replaceOne({ _id: 'site_data' }, { _id: 'site_data', ...newData }, { upsert: true });
+      // Remove any fields that could cause MongoDB issues
+      delete newData._id;
+      await collection.replaceOne(
+        { _id: 'site_data' },
+        { _id: 'site_data', ...newData },
+        { upsert: true }
+      );
       return res.status(200).json({ message: 'Content updated successfully!' });
     }
 
