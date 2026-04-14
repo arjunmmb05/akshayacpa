@@ -43,29 +43,24 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
-  const [siteData, setSiteData] = useState(() => {
-    const saved = localStorage.getItem('akshaya_site_data');
-    return saved ? JSON.parse(saved) : DEFAULT_DATA;
-  });
+  const [siteData, setSiteData] = useState(DEFAULT_DATA);
 
   useEffect(() => {
     const loadContent = async () => {
       const data = await fetchSiteData();
       if (data) {
         setSiteData(data);
-        localStorage.setItem('akshaya_site_data', JSON.stringify(data));
       }
     };
     loadContent();
   }, []);
 
   const handleSaveData = async (newData) => {
-    setSiteData(newData);
-    localStorage.setItem('akshaya_site_data', JSON.stringify(newData));
     try {
       await updateSiteData(newData);
+      setSiteData(newData);
     } catch (error) {
-      console.warn("Failed to sync with API. Changes saved locally.");
+      alert("Failed to save to the Cloud Database. Please check your Vercel/MongoDB connection.");
     }
   };
 

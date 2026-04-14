@@ -25,7 +25,7 @@ const Hero = ({ content, gallery }) => {
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden bg-[#f7f8fc]"
+      className="relative min-h-[100svh] flex items-center pt-28 pb-16 overflow-hidden bg-[#f7f8fc]"
     >
       {/* Gradient Mesh Background */}
       <div className="absolute inset-0 pointer-events-none -z-10">
@@ -47,7 +47,7 @@ const Hero = ({ content, gallery }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="leading-[1.02] tracking-tight text-zinc-900 drop-shadow-sm font-serif"
-              style={{ fontSize: 'clamp(3.5rem, 8vw, 6.5rem)' }}
+              style={{ fontSize: 'clamp(2.5rem, 10vw, 6.5rem)' }}
             >
               <span className="gradient-text block">Akshaya</span>
               <span className="text-zinc-900">Chandappura</span>
