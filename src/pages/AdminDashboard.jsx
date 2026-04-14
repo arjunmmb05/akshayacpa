@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Save, Plus, Trash2, LogOut, MessageSquare, 
-  Bell, Image as ImageIcon, Briefcase, LayoutGrid, Settings 
+  Bell, Image as ImageIcon, Briefcase, LayoutGrid, Settings, Mail 
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import ImageInput from '../components/ImageInput';
@@ -11,8 +11,11 @@ const AdminDashboard = ({ data, onSave }) => {
   const [formData, setFormData] = useState(data || {});
   const navigate = useNavigate();
 
+  // If data arrives later from the API, update the form
   useEffect(() => {
-    if (data) setFormData(data);
+    if (data && Object.keys(data).length > 0) {
+      setFormData(data);
+    }
   }, [data]);
 
   const handleSimpleChange = (section, field, value) => {
