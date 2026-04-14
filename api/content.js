@@ -1,5 +1,14 @@
 import { MongoClient } from 'mongodb';
 
+// Increase body size limit to handle base64 images from the Admin Panel
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+
 const uri = process.env.MONGODB_URI;
 let client;
 
