@@ -2,10 +2,9 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, User, Eye, EyeOff, ShieldCheck, AlertCircle } from 'lucide-react';
 
-// Credentials are hardcoded for frontend-only auth 
-// Change these to update admin access
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'Akshaya@2024';
+// Credentials use environment variables with fallbacks for local development
+const ADMIN_USERNAME = import.meta.env.VITE_ADMIN_USER || 'admin';
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASS || 'Akshaya@2024';
 
 const AdminLogin = ({ onLogin }) => {
   const [form, setForm] = useState({ username: '', password: '' });
