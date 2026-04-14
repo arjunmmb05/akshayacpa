@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, User, Eye, EyeOff, ShieldCheck, AlertCircle } from 'lucide-react';
 
-// Credentials use environment variables with fallbacks for local development
-const ADMIN_USERNAME = import.meta.env.VITE_ADMIN_USER || 'admin';
-const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASS || 'Akshaya@2024';
+// Credentials use environment variables for security. 
+// Set these in Vercel settings or your local .env file.
+const ADMIN_USERNAME = import.meta.env.VITE_ADMIN_USER;
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASS;
 
 const AdminLogin = ({ onLogin }) => {
   const [form, setForm] = useState({ username: '', password: '' });
