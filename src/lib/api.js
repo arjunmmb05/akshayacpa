@@ -8,9 +8,7 @@ export const fetchSiteData = async () => {
     return await response.json();
   } catch (error) {
     console.error("Error fetching site data:", error);
-    // Fallback to localStorage if API is down
-    const saved = localStorage.getItem('akshaya_site_data');
-    return saved ? JSON.parse(saved) : null;
+    return null;
   }
 };
 
@@ -22,7 +20,6 @@ export const updateSiteData = async (data) => {
       body: JSON.stringify(data),
     });
     if (!response.ok) throw new Error('Failed to update content');
-    localStorage.setItem('akshaya_site_data', JSON.stringify(data));
     return await response.json();
   } catch (error) {
     console.error("Error updating site data:", error);

@@ -40,11 +40,7 @@ const Contact = ({ content }) => {
       setFormData({ name: '', email: '', message: '' });
       alert("Your inquiry has been sent to our email and saved in the Admin Panel!");
     } catch (error) {
-      console.error("Submission error:", error);
-      alert("Something went wrong. We saved your message to the Admin Panel, but the email notification failed. Please ensure setup is complete.");
-      
-      // Fallback: Still save to local storage even if email fails
-      try { await submitInquiry(formData); } catch (e) {}
+      alert("Something went wrong with the server. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }

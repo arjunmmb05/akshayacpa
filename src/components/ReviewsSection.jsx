@@ -16,7 +16,7 @@ const ReviewsSection = ({ reviews, onReviewAdded }) => {
       alert('Your review has been securely submitted. Thank you!');
       if (onReviewAdded) onReviewAdded();
     } catch (error) {
-      alert('Submission failed. Your changes are saved locally.');
+      alert('Submission failed. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
