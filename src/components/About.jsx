@@ -27,26 +27,26 @@ const About = ({ data }) => {
     <section id="about" ref={ref} className="py-32 bg-[#f7f8fc] overflow-hidden relative">
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex flex-col lg:flex-row items-center gap-24">
-          
+
           {/* Visual Side */}
           <div className="lg:w-1/2 relative w-full">
-            <motion.div 
-               initial={{ opacity: 0, scale: 0.9 }}
-               whileInView={{ opacity: 1, scale: 1 }}
-               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-               viewport={{ once: true }}
-               style={{ rotate: rotateImg }}
-               className="aspect-[4/5] md:aspect-[5/6] rounded-[3.5rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.15)] relative z-10 group"
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true }}
+              style={{ rotate: rotateImg }}
+              className="aspect-[4/5] md:aspect-[5/6] rounded-[3.5rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.15)] relative z-10 group"
             >
-              <motion.img 
+              <motion.img
                 style={{ y: imgY, scale: 1.15 }}
-                src="https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&q=80&w=1200" 
-                alt="Akshaya Digital Government" 
+                src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGFWzy3i8JycvxV4wmGeugUwbai628kMdpKfs9yp3XWVRII06yaR5kaZZXV5q4XP_GDoIuCJi1iOhIGfTSKsjARnHy-wxDtVtLmpuj6tawHQOWkgNK5TnXvpNjPGUFIUju-TXA=s1360-w1360-h1020"
+                alt="Akshaya Digital Government"
                 className="w-full h-full object-cover transform origin-top grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent opacity-60" />
             </motion.div>
-            
+
             {/* Background elements */}
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 blur-3xl rounded-full" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/40 -z-10 rounded-full blur-[100px]" />
@@ -54,24 +54,24 @@ const About = ({ data }) => {
 
           {/* Content Side */}
           <div className="lg:w-1/2">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
             >
               <h2 className="text-5xl md:text-7xl font-black text-zinc-900 tracking-tighter leading-[1] font-serif mb-10">
-                The Gateway to <br/> <span className="gradient-text">Digital Services</span>
+                The Gateway to <br /> <span className="gradient-text">Digital Services</span>
               </h2>
-              
+
               <div className="space-y-10">
                 <p className="text-zinc-500 text-lg md:text-xl leading-relaxed font-medium">
                   {content.content}
                 </p>
-                
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-8 border-t border-zinc-200">
                   {features.map((feature, i) => (
-                    <motion.div 
+                    <motion.div
                       key={i}
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}

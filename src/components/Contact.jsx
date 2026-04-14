@@ -20,7 +20,7 @@ const Contact = ({ content }) => {
       alert("Please fill in all fields.");
       return;
     }
-    
+
     setIsSubmitting(true);
     try {
       // 1. Send SMTP Email via Serverless Function
@@ -61,7 +61,7 @@ const Contact = ({ content }) => {
 
       <div className="container mx-auto px-6 relative z-10 max-w-7xl">
         <div className="flex flex-col lg:flex-row gap-24 items-start">
-          
+
           {/* Info Side */}
           <div className="lg:w-1/2">
             <motion.div
@@ -71,7 +71,7 @@ const Contact = ({ content }) => {
               transition={{ duration: 1 }}
             >
               <h2 className="text-5xl md:text-7xl font-black text-zinc-900 tracking-tighter leading-[1] font-serif mb-10">
-                Contact <br/> <span className="text-zinc-400">the</span> <span className="gradient-text">Directorate</span>
+                Contact <span className="gradient-text">Us</span>
               </h2>
               <p className="text-zinc-500 text-lg md:text-xl font-medium mb-16 leading-relaxed max-w-lg">
                 Require specialized assistance? Visit our center or reach out via phone. Our team is ready to facilitate your requirements.
@@ -79,7 +79,7 @@ const Contact = ({ content }) => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
                 {contactOptions.map((opt, i) => (
-                  <motion.div 
+                  <motion.div
                     key={i}
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -99,9 +99,9 @@ const Contact = ({ content }) => {
               </div>
 
               <div className="mt-16">
-                <a 
-                  href={`https://wa.me/${phone.replace(/[^0-9]/g, '')}`} 
-                  target="_blank" 
+                <a
+                  href={`https://wa.me/${phone.replace(/[^0-9]/g, '')}`}
+                  target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-3 bg-[#25D366] text-white px-10 py-5 rounded-[2rem] font-black uppercase text-xs tracking-widest hover:bg-[#1EBE5D] transition-all shadow-xl shadow-[#25D366]/20"
                 >
@@ -114,7 +114,7 @@ const Contact = ({ content }) => {
 
           {/* Form Side */}
           <div className="lg:w-1/2 w-full lg:sticky lg:top-32">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -123,43 +123,43 @@ const Contact = ({ content }) => {
               <div className="relative z-10">
                 <h3 className="text-3xl font-black text-zinc-900 mb-2 tracking-tighter font-serif">Inquiry Portal</h3>
                 <p className="text-zinc-400 text-sm mb-12 font-bold">Specify your requirements below.</p>
-                
+
                 <form className="space-y-8" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                     <div className="flex flex-col gap-3">
                       <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-4">Name</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         required
                         value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full bg-white border border-zinc-200 rounded-2xl px-8 py-5 text-zinc-800 font-bold focus:border-primary transition-all outline-none"
                       />
                     </div>
                     <div className="flex flex-col gap-3">
                       <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-4">Email</label>
-                      <input 
-                        type="email" 
+                      <input
+                        type="email"
                         required
                         value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full bg-white border border-zinc-200 rounded-2xl px-8 py-5 text-zinc-800 font-bold focus:border-primary transition-all outline-none"
                       />
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-col gap-3">
                     <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-4">Message</label>
-                    <textarea 
-                      rows={4} 
+                    <textarea
+                      rows={4}
                       required
                       value={formData.message}
-                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full bg-white border border-zinc-200 rounded-2xl px-8 py-5 text-zinc-800 font-bold focus:border-primary transition-all outline-none resize-none"
                     />
                   </div>
-                  
-                  <button 
+
+                  <button
                     disabled={isSubmitting}
                     className="btn-primary w-full py-6 text-xs uppercase font-black tracking-widest flex items-center justify-center gap-4 group shadow-primary/20"
                   >
@@ -169,7 +169,7 @@ const Contact = ({ content }) => {
               </div>
             </motion.div>
           </div>
-          
+
         </div>
       </div>
     </section>

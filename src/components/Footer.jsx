@@ -24,7 +24,7 @@ const Footer = () => {
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
             <p className="text-[9px] font-black uppercase tracking-widest text-zinc-400">
-              &copy; {currentYear}
+              Designed & Developed by <a href="https://ideacopa.vercel.app">Ideacopa</a>
             </p>
           </div>
 
