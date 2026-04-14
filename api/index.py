@@ -40,52 +40,52 @@ DEFAULT_DATA = {
 
 @app.route('/api/content', methods=['GET'])
 def get_content():
-    content = content_collection.find_one({"_id": "site_data"})
-    if not content:
-        # If DB is empty, return default data
+    try:
+        content = content_collection.find_one({"_id": "site_data"})
+        if not content:
+            return jsonify(DEFAULT_DATA)
+        content.pop('_id', None)
+        return jsonify(content)
+    except Exception as e:
+        print("Database error:", e)
+        # Force fallback to DEFAULT_DATA if MongoDB is offline or blocked
         return jsonify(DEFAULT_DATA)
-    content.pop('_id', None)
-    return jsonify(content)
 
 @app.route('/api/content', methods=['POST'])
 def update_content():
-    new_data = request.json
-    content_collection.replace_one({"_id": "site_data"}, new_data, upsert=True)
-    return jsonify({"message": "Content updated successfully!"}), 200
+    try:
+        new_data = request.json
+        content_collection.replace_one({"_id": "site_data"}, new_data, upsert=True)
+        return jsonify({"message": "Content updated successfully!"}), 200
+    except Exception as e:
+        return jsonify({"error": "Database connection failed. Ensure MongoDB Atlas accepts any IP (0.0.0.0/0)."}), 500
 
 @app.route('/api/reviews', methods=['POST'])
 def add_review():
-    review = request.json
-    content_collection.update_one(
-        {"_id": "site_data"},
-        {"$push": {"reviews": review}}
-    )
-    return jsonify({"message": "Review added successfully!"}), 200
+    try:
+        review = request.json
+        content_collection.update_one(
+            {"_id": "site_data"},
+            {"$push": {"reviews": review}}
+        )
+        return jsonify({"message": "Review added successfully!"}), 200
+    except Exception as e:
+        return jsonify({"error": "Failed to save review to database."}), 500
 
 @app.route('/api/send-email', methods=['POST'])
 def send_email():
-    data = request.json
-    name = data.get('name')
-    email = data.get('email')
-    message = data.get('message')
-
-    smtp_user = os.getenv("SMTP_USER")
-    smtp_pass = os.getenv("SMTP_PASS")
-
-    if not all([name, email, message, smtp_user, smtp_pass]):
-        return jsonify({"error": "Missing Info"}), 400
-
+    # TEMPORARILY DISABLED SMTP: Saving directly to Database
     try:
-        msg = MIMEMultipart()
-        msg['From'] = smtp_user
-        msg['To'] = "akshayakn984@gmail.com"
-        msg['Subject'] = f"New Inquiry from {name}"
-        msg.attach(MIMEText(f"From: {name} ({email})\n\n{message}", 'plain'))
-
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.login(smtp_user, smtp_pass)
-        server.send_message(msg)
-        server.quit()
-        return jsonify({"message": "Sent!"}), 200
+        inquiry = request.json
+        inquiry['date'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        content_collection.update_one(
+            {"_id": "site_data"},
+            {"$push": {"inquiries": inquiry}}
+        )
+        return jsonify({"message": "Inquiry saved to Admin Panel!"}), 200
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": "Failed to save inquiry to database."}), 500
+
+# Required by Vercel Serverless
+def handler(event, context):
+    return app(event, context)
