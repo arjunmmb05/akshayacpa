@@ -66,8 +66,8 @@ const AdminDashboard = ({ data, onSave }) => {
             </div>
           </div>
           <div className="flex gap-4 w-full md:w-auto">
-            <button onClick={() => navigate('/')} className="px-6 py-3 rounded-2xl text-zinc-500 font-bold hover:bg-zinc-100 hover:text-zinc-800 transition-all border border-zinc-200">
-                <LogOut size={20} className="inline-block mr-2" /> Exit
+            <button onClick={() => { sessionStorage.removeItem('akshaya_admin_auth'); navigate('/'); }} className="px-6 py-3 rounded-2xl text-zinc-500 font-bold hover:bg-zinc-100 hover:text-zinc-800 transition-all border border-zinc-200">
+                <LogOut size={20} className="inline-block mr-2" /> Logout
             </button>
             <button 
               onClick={handleSave}
